@@ -3,7 +3,7 @@
 1 GCC-PHAT
           gcc_phat.m
           delaytimeGCC.m
-2 SPR-PHAT
+2 SRP-PHAT
           DelaySumURA.m
           SRP_PHAT_URA.m  主函数
 更多内容见 https://github.com/LWZ9755/DOA_SRP-PHAT
