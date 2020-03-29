@@ -17,9 +17,10 @@
 
 ## 与语音信号处理的宽带声源定位相关的参考资源
 ### 竞赛
-* acoustic source LOCalization And TrAcking (LOCATA) [[Link]](https://locata.lms.tf.fau.de/)
-* Detection and Classification of Acoustic Scenes and Events (DCASE) [[Link]](http://dcase.community/challenge2020/task-sound-event-localization-and-detection)
-
+<div>
+* acoustic source LOCalization And TrAcking [[LOCATA]](https://locata.lms.tf.fau.de/)
+* Detection and Classification of Acoustic Scenes and Events [[DCASE]](http://dcase.community/challenge2020/task-sound-event-localization-and-detection)
+</div>
 ### 多通道数据集生成算法
 * rir-generator [[Code]](https://github.com/ehabets/RIR-Generator)
 ### 开源代码 
