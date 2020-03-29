@@ -11,16 +11,14 @@
 *  beamforming:基于延迟求和(DS)的SNR方位谱估计、基于MVDR的SNR方位谱估计及其对应的频率加权改进算法
 
 ### 将要拓展的内容：
-1 基于神经网络的声源定位算法
-2 基于聚类、EM算法的声源定位算法
-3 双耳定位算法
+*1 基于神经网络的声源定位算法
+*2 基于聚类、EM算法的声源定位算法
+*3 双耳定位算法
 
 ## 与语音信号处理的宽带声源定位相关的参考资源
 ### 竞赛
-<div>
 * acoustic source LOCalization And TrAcking [[LOCATA]](https://locata.lms.tf.fau.de/)
 * Detection and Classification of Acoustic Scenes and Events [[DCASE]](http://dcase.community/challenge2020/task-sound-event-localization-and-detection)
-</div>
 ### 多通道数据集生成算法
 * rir-generator [[Code]](https://github.com/ehabets/RIR-Generator)
 ### 开源代码 
