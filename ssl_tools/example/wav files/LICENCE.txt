@@ -1,0 +1,3 @@
+The 'male_female_mixture.wav' WAV file is a mixture of 'male_s1.wav' and 'female_s1.wav' provided with BSS Locate version 2 full (http://bass-db.gforge.inria.fr/bss_locate/bss_locate_full.zip).
+
+These files are distributed under the the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 2.0 license (http://creativecommons.org/licenses/by-nc-sa/2.0/).
