@@ -11,7 +11,7 @@
 
 3 ISM算法
           ISM—DOA.m
-          
-END-TO-END BINAURAL SOUND LOCALISATION FROM THE RAW WAVEFORM[^Vecchiotti_2019] https://github.com/bingo-todd/GCC-PHAT_DNN_Loc
 
-Sound Source Localization using Deep Residual Learning https://github.com/Fhrozen/jrm_ssl
+
+          
+
