@@ -5,15 +5,15 @@
 
 **关键词**：声源定位(sound source localization)、DOA估计（DOA estimation）、TDOA估计（TDOA estimation）、麦克风阵列信号处理(microphone array signal processing)
 ## ssl_tools
-* 包含SRP-PHAT(GCC-PHAT)、MUSIC、beamforming（波束形成）三类算法
+包含SRP-PHAT(GCC-PHAT)、MUSIC、beamforming（波束形成）三类算法
 *  SRP：SRP-PHAT（两麦克风时退化为GCC-PHAT）、非线性SRP-PHAT
 *  MUSIC
 *  beamforming:基于延迟求和(DS)的SNR方位谱估计、基于MVDR的SNR方位谱估计及其对应的频率加权改进算法
 
 ### 将要拓展的内容：
-*1 基于神经网络的声源定位算法
-*2 基于聚类、EM算法的声源定位算法
-*3 双耳定位算法
+* 基于神经网络的声源定位算法
+* 基于聚类、EM算法的声源定位算法
+* 双耳定位算法
 
 ## 与语音信号处理的宽带声源定位相关的参考资源
 ### 竞赛
