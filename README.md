@@ -24,7 +24,8 @@
 * rir-generator [[Code]](https://github.com/ehabets/RIR-Generator)
 ### 开源代码 
 #### 基于时延的定位
-* A simple DOA GUI [[Code]]（https://github.com/wangwei2009/DOA）
+* A simple DOA GUI 
+[[Code]](https://github.com/wangwei2009/DOA)
 #### 基于波束形成的定位
 * DNN_Localization_And_Separation 
 [[Code]](https://github.com/shaharhoch/DNN_Localization_And_Separation)
@@ -45,6 +46,6 @@
 #### 窄带定位
 * doa-tools
 [[Code]](https://github.com/morriswmz/doa-tools)
-* 麦克风声源定位 [[Code]](https://github.com/xiaoli1368/Microphone-sound-source-localization）
+* 麦克风声源定位 [[Code]](https://github.com/xiaoli1368/Microphone-sound-source-localization)
 
 ### 论文
