@@ -21,6 +21,7 @@
 * Detection and Classification of Acoustic Scenes and Events [[DCASE]](http://dcase.community/challenge2020/task-sound-event-localization-and-detection)
 ### 多通道数据集生成算法
 * rir-generator [[Code]](https://github.com/ehabets/RIR-Generator)
+* ROOMSIM[[Code]](https://github.com/Wenzhe-Liu/ROOMSIM)
 ### 开源代码 
 #### 基于时延的定位
 * A simple DOA GUI 
