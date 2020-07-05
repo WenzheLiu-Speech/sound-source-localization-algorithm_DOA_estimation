@@ -1,7 +1,7 @@
 function [specGlobal] = doa_srp(x,method, Param)
 %% 
 if(~any(strcmp(method, {'SRP-PHAT' 'SRP-NON'})))
-    error('ERROR[doa_srp]:¥ÌŒÛµƒmethod');   
+    error('ERROR[doa_srp]: methodÂèÇÊï∞ÈîôËØØ');   
 end
 %% STFT
 X = ssl_stft(x.',Param.window, Param.noverlap, Param.nfft, Param.fs);
@@ -21,7 +21,7 @@ function X=ssl_stft(x,window,noverlap,nfft,fs)
 % Output:X: nbin x nfram x nchan matrix 
 
 [nchan,~]=size(x);
-[Xtemp,F,T,~] = spectrogram(x(1,:),window,noverlap,nfft,fs);%S nbinxnframe
+[Xtemp,F,T,~] = spectrogram(x(1,:),window,noverlap,nfft,fs); % S nbin x nframe
 nbin = length(F);
 nframe = length(T);
 X = zeros(nbin,nframe,nchan);
@@ -42,10 +42,7 @@ for i = 1:Param.nPairs
     specCurrentPair = interp1q(Param.alphaSampled{i}', specSampledgrid, Param.alpha(i,:)');
     specInst(:,:) = specInst(:,:) + specCurrentPair;
 end
-% for i=1:nFrames
-%     minVal = min(min(specInst(:,i)));
-%     specInst(:,i)=(specInst(:,i) - minVal)/ max(max(specInst(:,i)- minVal));
-% end
+
 switch Param.pooling
     case 'max'
         specGlobal = shiftdim(max(specInst,[],2));
@@ -66,10 +63,7 @@ for i = 1:Param.nPairs
     specCurrentPair = interp1q(Param.alphaSampled{i}', specSampledgrid, Param.alpha(i,:)');
     specInst = specInst + specCurrentPair;
 end
-% for i=1:nFrames
-%     minVal = min(min(specInst(:,i)));
-%     specInst(:,i)=(specInst(:,i) - minVal)/ max(max(specInst(:,i)- minVal));
-% end
+
 switch Param.pooling
     case 'max'
         specGlobal = shiftdim(max(specInst,[],2));
