@@ -14,7 +14,6 @@ for pkInd=1:length(tauGrid),
     EXP = repmat(exp(-2*1i*pi*tauGrid(pkInd)*f),1,nFrames);
     power_y = real(R11.*R22 - R12.*R21)./(traceRxx - 2*real(R12.*EXP));
     SNR(:,:,pkInd) = repmat(-(1+SINC)/2,1,nFrames) + repmat((1-SINC)/2,1,nFrames).*power_y./(.5*traceRxx-power_y);
-    % SNR = w*PHI_MVDR+x-1;∆‰÷– w*PHI_MVDR = repmat((1-SINC)/2,1,nFrames).*power_y./(.5*traceRxx-power_y);w-1 = repmat(-(1+SINC)/2,1,nFrames);
 end
 spec = SNR;
 
