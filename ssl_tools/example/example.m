@@ -2,8 +2,8 @@ clc;clear;close all;
 
 addpath(genpath('./../'));
 addpath('./wav files');
-%% Input File & Mic config
-fileName = 'male_female_mixture.wav';  
+%% éŸ³é¢‘æ–‡ä»¶å’Œä¼ å£°å™¨ä½ç½®åæ ‡
+fileName = 'example.wav';  
 micPos = ... 
 ...%  mic1	 mic2   mic3   mic4   mic5   mic6   mic7  mic8
     [ 0.037 -0.034 -0.056 -0.056 -0.037  0.034  0.056 0.056;  % x
@@ -11,32 +11,30 @@ micPos = ...
     -0.038   0.038 -0.038  0.038 -0.038  0.038 -0.038 0.038]; % z
 
 
-azBound = [-180 180]; % ·½Î»½ÇËÑË÷·¶Î§
-elBound = [-90 90];   % ¸©Ñö½ÇËÑË÷·¶Î§¡£ÈôÖ»ÓĞË®Æ½Ãæ£ºÔòelBound=0;
-gridRes = 1;          % ·½Î»½Ç/¸©Ñö½ÇµÄ·Ö±æÂÊ
-alphaRes = 5;          % Resolution (? of the 2D reference system defined for each microphone pair
+azBound = [-180 180]; % æ–¹ä½è§’æœç´¢èŒƒå›´
+elBound = [-90 90];   % ä¿¯ä»°è§’æœç´¢èŒƒå›´ã€‚è‹¥åªæœ‰æ°´å¹³é¢ï¼šåˆ™elBound=0;
+gridRes = 1;          % æ–¹ä½è§’/ä¿¯ä»°è§’çš„åˆ†è¾¨ç‡
+alphaRes = 5;          % åˆ†è¾¨ç‡
 
-% method = 'SRP-PHAT';
-% method = 'SNR-MVDR';
-% method = 'SNR-FWMVDR';
 method = 'MUSIC';
 wlen = 512;
 window = hann(wlen);
 noverlap = 0.5*wlen;
 nfft = 512;
-nsrc = 2;          % ÉùÔ´¸öÊı
-c = 343;        % ÉùËÙ
-freqRange = [];         % ¼ÆËãµÄÆµÂÊ·¶Î§ []ÎªËùÓĞÆµÂÊ
-pooling = 'max';      % ÈçºÎ¾ÛºÏ¸÷Ö¡µÄ½á¹û£ºËùÓĞÖ¡È¡×î´ó»òÇóºÍ{'max' 'sum'}
-%% ¶ÁÈ¡ÒôÆµÎÄ¼ş(fix)
+nsrc = 2;               % å£°æºä¸ªæ•°
+c = 343;                % å£°é€Ÿ
+freqRange = [];         % è®¡ç®—çš„é¢‘ç‡èŒƒå›´ []ä¸ºæ‰€æœ‰é¢‘ç‡
+pooling = 'max';        % å¦‚ä½•èšåˆå„å¸§çš„ç»“æœï¼šæ‰€æœ‰å¸§å–æœ€å¤§æˆ–æ±‚å’Œ{'max' 'sum'}
+
+%% è¯»å–éŸ³é¢‘æ–‡ä»¶(fix)
 [x,fs] = audioread(fileName);
-[nSample,nChannel]=size(x);
-if nChannel>nSample, error('ERROR:ÊäÈëĞÅºÅÎªnSample x nChannel'); end
+[nSample,nChannel] = size(x);
+if nChannel>nSample, error('ERROR:è¾“å…¥ä¿¡å·ä¸ºnSample x nChannel'); end
 [~,nMic,~] = size(micPos);
-if nChannel~=nMic, error('ERROR:Âó¿Ë·çÊıÓ¦ÓëĞÅºÅÍ¨µÀÊıÏàµÈ'); end
-%% ±£´æ²ÎÊı(fix)
+if nChannel~=nMic, error('ERROR:éº¦å…‹é£æ•°åº”ä¸ä¿¡å·é€šé“æ•°ç›¸ç­‰'); end
+%% ä¿å­˜å‚æ•°(fix)
 Param = pre_paramInit(c,window, noverlap, nfft,pooling,azBound,elBound,gridRes,alphaRes,fs,freqRange,micPos);
-%% ¶¨Î»(fix)
+%% å®šä½(fix)
 if strfind(method,'SRP')
     specGlobal = doa_srp(x,method, Param);
 elseif strfind(method,'SNR')
@@ -45,19 +43,17 @@ elseif strfind(method,'MUSIC')
     specGlobal = doa_music(x,Param,nsrc);
 else 
 end
-% save('n.mat','specGlobal');
-% ppfSpec2D = (reshape(specGlobal,length(Param.azimuth),length(Param.elevation)))';
-% imagesc(ppfSpec2D)
-%% ¼ÆËã½Ç¶È
-minAngle                   = 10;         % ËÑË÷Ê±Á½·åÖ®¼ä×îĞ¡¼Ğ½Ç
-specDisplay                = 1;          % ÊÇ·ñÕ¹Ê¾½Ç¶ÈÆ×{1,0}
+
+%% è®¡ç®—è§’åº¦
+minAngle                   = 10;         % æœç´¢æ—¶ä¸¤å³°ä¹‹é—´æœ€å°å¤¹è§’
+specDisplay                = 1;          % æ˜¯å¦å±•ç¤ºè§’åº¦è°±{1,0}
 % pfEstAngles = post_sslResult(specGlobal, nsrc, Param.azimuth, Param.elevation, minAngle);
-% »æÖÆ½ÇÆ×
+% ç»˜åˆ¶è§’è°±
 % [pfEstAngles,figHandle] = post_findPeaks(specGlobal, Param.azimuth, Param.elevation, Param.azimuthGrid, Param.elevationGrid, nsrc, minAngle, specDisplay);
 [pfEstAngles,figHandle] = post_findPeaks(specGlobal, Param.azimuth, Param.elevation, Param.azimuthGrid, Param.elevationGrid, nsrc, minAngle, specDisplay);
 
 azEst = pfEstAngles(:,1)';
 elEst = pfEstAngles(:,2)';
 for i = 1:nsrc
-    fprintf('Estimated source %d : \n Azimuth (Theta): %.0f \t Elevation (Phi): %.0f \n\n',i,azEst(i),elEst(i));
+    fprintf('ç¬¬ %d ä¸ªå£°æºæ–¹ä½ä¸º: \n Azimuth (Theta): %.0f \t Elevation (Phi): %.0f \n\n',i,azEst(i),elEst(i));
 end
