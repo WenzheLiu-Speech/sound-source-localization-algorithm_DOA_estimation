@@ -1,7 +1,7 @@
 function [specGlobal] = doa_mvdr(x,method,Param)
 %%
 if(~any(strcmp(method, {'SNR-MVDR' 'SNR-FWMVDR' 'SNR-DS' 'SNR-FWDS'})))
-    error('Unknown local angular spectrum.');   
+    error('ERROR : method鍙傛暟閿欒');   
 end
 %%
 lf=8;lt=2;
@@ -17,16 +17,10 @@ elseif strcmp(method,'SNR-DS')
 elseif strcmp(method,'SNR-FWDS')
     specGlobal = ssl_FWDS(Rxx,Param);
 else
-    error('ERROR[doa_srp]:错误的method');
+    error('ERROR :閿欒鐨刴ethod');
 end
 end
 function [hatRxx]=ssl_Rxx(x,fs,window,noverlap, nfft,lf,lt)
-% lf: half-width of the frequency neighborhood for the computation of
-% empirical covariance
-% lt: half-width of the time neighborhood for the computation of empirical
-% covariance
-% Cx: nchan x nchan x nbin x nfram matrix containing the spatial empirical covariance matrices of the input signal in all time-frequency bins
-
 %%
 if nargin<3, error('Not enough input arguments.'); end
 [nsampl,nchan]=size(x);
@@ -37,7 +31,7 @@ if nargin<5, lt=2; end
 %% STFT 
 X = ioa_stftCompute(x.',window,noverlap,nfft,fs);
 [nbin,nfram,nchan]=size(X);
-%% Computation of local covariances for each pair of microphone 
+%% 
 winf=hanning(2*lf-1);
 wint=hanning(2*lt-1).';
 hatRxx = zeros(nchan,nchan,nbin,nfram);
@@ -69,10 +63,7 @@ for i = 1:Param.nPairs
     specCurrentPair = interp1q(Param.alphaSampled{i}', specSampledgrid, Param.alpha(i,:)');
     specInst = specInst + specCurrentPair;
 end
-% for i=1:nFrames
-%     minVal = min(min(specInst(:,i)));
-%     specInst(:,i)=(specInst(:,i) - minVal)/ max(max(specInst(:,i)- minVal));
-% end
+
 switch Param.pooling
     case 'max'
         specGlobal = shiftdim(max(specInst,[],2));
@@ -91,10 +82,7 @@ for i = 1:Param.nPairs
     specCurrentPair = interp1q(Param.alphaSampled{i}', specSampledgrid, Param.alpha(i,:)');
     specInst = specInst + specCurrentPair;
 end
-% for i=1:nFrames
-%     minVal = min(min(specInst(:,i)));
-%     specInst(:,i)=(specInst(:,i) - minVal)/ max(max(specInst(:,i)- minVal));
-% end
+
 switch Param.pooling
     case 'max'
         specGlobal = shiftdim(max(specInst,[],2));
@@ -108,16 +96,11 @@ function [specGlobal] = ssl_MVDR(hatRxx,Param)
 specInst = zeros(Param.nGrid, nFrames);
 
 for i = 1:Param.nPairs
-    spec = mvdr_spec(hatRxx(Param.freqBins,:,Param.pairId(i,:),Param.pairId(i,:)), Param.f(Param.freqBins), Param.tauGrid{i}); % 取一对麦克风进行MVDR
+    spec = mvdr_spec(hatRxx(Param.freqBins,:,Param.pairId(i,:),Param.pairId(i,:)), Param.f(Param.freqBins), Param.tauGrid{i}); % 鍙栦竴瀵归害鍏嬮杩涜MVDR
     specSampledgrid = (shiftdim(sum(spec,1)))'; % sum on frequencies
     specCurrentPair = interp1q(Param.alphaSampled{i}', specSampledgrid, Param.alpha(i,:)');
     specInst = specInst + specCurrentPair;
 end
-
-% for i=1:nFrames
-%     minVal = min(min(specInst(:,i)));
-%     specInst(:,i)=(specInst(:,i) - minVal)/ max(max(specInst(:,i)- minVal));
-% end
 
 switch Param.pooling
     case 'max'
@@ -137,11 +120,6 @@ for i = 1:Param.nPairs
     specCurrentPair = interp1q(Param.alphaSampled{i}', specSampledgrid, Param.alpha(i,:)');
     specInst = specInst + specCurrentPair;
 end
-
-% for i=1:nFrames
-%     minVal = min(min(specInst(:,i)));
-%     specInst(:,i)=(specInst(:,i) - minVal)/ max(max(specInst(:,i)- minVal));
-% end
 
 switch Param.pooling
     case 'max'
