@@ -1,6 +1,6 @@
 function specGlobal = doa_music(x,Param,nsrc)
 if(size(x,2)<2)
-    error('ERROR[MUSIC]:ÐÅºÅÍ¨µÀÊý±ØÐë´óÓÚµÈÓÚ2');
+    error('ERROR[MUSIC]:ä¿¡å·é€šé“æ•°å¿…é¡»å¤§äºŽç­‰äºŽ2');
 end
 %% STFT
 X = ssl_stft(x.',Param.window,Param.noverlap,Param.nfft,Param.fs);%nbin,nfram,nchan
@@ -8,45 +8,27 @@ X = X(2:end,:,:);
 X = X(Param.freqBins,:,:);
 [nbin,~,nmic] = size(X);
 %% MUSIC
-% power = zeros(nbin, length(Param.azimuth)*length(Param.elevation));
-% for ibin = 1:nbin % ¶ÔÓÚÃ¿¸öÆµµã 
-%     Rxx = (transpose(squeeze(X(ibin,:,:)))*conj(squeeze(X(ibin,:,:))));% ×ÔÏà¹Ø¾ØÕó
-%     [U,~,~] = svd(Rxx);    % SVD·Ö½â   Rxx = U * S * U^H
-%     En = U(:,nsrc+1:end);  % ÔëÉù×Ó¿Õ¼ä
-%     fprintf('%d\n',ibin)
-%     idx = 1;
-%     for iel = 1 : length(Param.elevation)%1 : length(Param.azimuth)
-%         for iaz = 1 : length(Param.azimuth)%1 : length(Param.elevation)
-%             % vÎªÉùÔ´·½ÏòµÄµ¥Î»ÏòÁ¿£¬¼ûÛ³Éç·æÊé£¬ÐèÒª×¢ÒâµÄÊÇ£¬±¾³ÌÐòµÄ·½Î»½ÇÓë¸©Ñö½ÇÓëÊéÖÐ¶¨Òå²»Í¬
-%             v = [cosd(Param.elevation(iel))*cosd(Param.azimuth(iaz));cosd(Param.elevation(iel))*sind(Param.azimuth(iaz));sind(Param.elevation(iel))];% 3 x 1
-%             tau = v'*(Param.micPos-repmat(Param.micPos(:,1),[1,nmic]))./Param.c; % 1 * nmic  ²Î¿¼Âó¿ËÎª1£ºParam.micPos(:,1)         
-%             a = exp(1i*2*pi*Param.f(ibin).*transpose(tau));%nmic x 1     SV = exp(-2*1i*pi*tau*Param.f.');  % nmic x nbin
-%             power(ibin,idx) = 1./(sum(abs( ctranspose(a) * En * ctranspose(En) * a )));
-%             idx = idx+1;
-%         end
-%     end
-% end
-% linspace°üº¬¶Ëµã£¬±£Ö¤²åÖµÊ±²»»á³öÏÖNaN
+% linspaceåŒ…å«ç«¯ç‚¹ï¼Œä¿è¯æ’å€¼æ—¶ä¸ä¼šå‡ºçŽ°NaN
 aziGrid = linspace(Param.azimuth(1),Param.azimuth(end),round((Param.azimuth(end)-Param.azimuth(1))/Param.alphaRes)+1);
 eleGrid = linspace(Param.elevation(1),Param.elevation(end),round((Param.elevation(end)-Param.elevation(1))/Param.alphaRes)+1);
 power = zeros(nbin, length(aziGrid), length(eleGrid));
 
-for ibin = 1:nbin % ¶ÔÓÚÃ¿¸öÆµµã 
-    Rxx = (transpose(squeeze(X(ibin,:,:)))*conj(squeeze(X(ibin,:,:))));% ×ÔÏà¹Ø¾ØÕó
-    [U,~,~] = svd(Rxx);    % SVD·Ö½â   Rxx = U * S * U^H
-    En = U(:,nsrc+1:end);  % ÔëÉù×Ó¿Õ¼ä
+for ibin = 1:nbin % å¯¹äºŽæ¯ä¸ªé¢‘ç‚¹ 
+    Rxx = (transpose(squeeze(X(ibin,:,:)))*conj(squeeze(X(ibin,:,:))));% è‡ªç›¸å…³çŸ©é˜µ
+    [U,~,~] = svd(Rxx);    % SVDåˆ†è§£   Rxx = U * S * U^H
+    En = U(:,nsrc+1:end);  % å™ªå£°å­ç©ºé—´
     fprintf('%d\n',ibin)
     for iaz = 1 :length(aziGrid)
         for iel = 1 :length(eleGrid)
             v = [cosd(eleGrid(iel))*cosd(aziGrid(iaz));cosd(eleGrid(iel))*sind(aziGrid(iaz));sind(eleGrid(iel))];% 3 x 1
-            tau = v'*(Param.micPos-repmat(Param.micPos(:,1),[1,nmic]))./Param.c; % 1 * nmic  ²Î¿¼Âó¿ËÎª1£ºParam.micPos(:,1)         
+            tau = v'*(Param.micPos-repmat(Param.micPos(:,1),[1,nmic]))./Param.c; % 1 * nmic  å‚è€ƒéº¦å…‹ä¸º1ï¼šParam.micPos(:,1)         
             a = exp(1i*2*pi*Param.f(ibin).*transpose(tau));%nmic x 1     SV = exp(-2*1i*pi*tau*Param.f.');  % nmic x nbin
             power(ibin,iaz,iel) = 1./(sum(abs( ctranspose(a) * En * ctranspose(En) * a )));
         end
     end
 end
 
-% ¶ÔËùÓÐÆµÂÊµÄ¿Õ¼äÆ×¼ÓÔÚÒ»Æð:
+% å¯¹æ‰€æœ‰é¢‘çŽ‡çš„ç©ºé—´è°±åŠ åœ¨ä¸€èµ·:
 spec = squeeze(sum(power,1)); %nAzi x nEle
 [az,el]=meshgrid(aziGrid,eleGrid);
 [azi,eli]=meshgrid(Param.azimuth,Param.elevation);
