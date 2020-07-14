@@ -10,7 +10,7 @@ P = P./abs(P);
 spec = zeros(nbin,nFrames,ngrid);
 for pkInd = 1:ngrid
     EXP = repmat(exp(-2*1i*pi*tauGrid(pkInd)*f),1,nFrames);
-    spec(:,:,pkInd) = real(P).*real(EXP) - imag(P).*imag(EXP); % 比直接spec(:,:,pkInd) = real(P.*EXP)计算速度更快
+    spec(:,:,pkInd) = real(P).*real(EXP) - imag(P).*imag(EXP); 
 end
 
 end
