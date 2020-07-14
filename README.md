@@ -6,7 +6,7 @@
 **关键词**：声源定位(sound source localization)、DOA估计（DOA estimation）、TDOA估计（TDOA estimation）、麦克风阵列信号处理(microphone array signal processing)
 ## ssl_tools
 包含SRP-PHAT(GCC-PHAT)、MUSIC、beamforming（波束形成）三类算法
-*  SRP：SRP-PHAT（两麦克风时退化为GCC-PHAT）、非线性SRP-PHAT
+*  SRP：SRP-PHAT、非线性SRP-PHAT
 *  MUSIC
 *  beamforming:基于延迟求和(DS)的SNR方位谱估计、基于MVDR的SNR方位谱估计及其对应的频率加权改进算法
 
