@@ -1,7 +1,7 @@
 # sound-source-localization-algorithm_DOA_estimation
 * 语音信号处理的宽带说话人(声源)定位（DOA估计）算法
 
-**Abstract** 本仓库是面向语音信号的麦克风阵列信号处理算法（目前仅开放了是声源定位的信号处理算法），也可供窄带信号的声源定位参考
+**Abstract** 本仓库是面向语音信号的声源定位传统算法
 
 **关键词**：声源定位(sound source localization)、DOA估计（DOA estimation）、TDOA估计（TDOA estimation）、麦克风阵列信号处理(microphone array signal processing)
 ## ssl_tools
