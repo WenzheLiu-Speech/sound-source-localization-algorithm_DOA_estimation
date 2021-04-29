@@ -10,10 +10,6 @@
 *  MUSIC
 *  beamforming:基于延迟求和(DS)的SNR方位谱估计、基于MVDR的SNR方位谱估计及其对应的频率加权改进算法
 
-### 将要拓展的内容：
-* 基于神经网络的声源定位算法
-* 基于聚类、EM算法的声源定位算法
-* 双耳定位算法
 
 ## 与语音信号处理的宽带声源定位相关的参考资源
 ### 竞赛
@@ -48,4 +44,3 @@
 [[Code]](https://github.com/morriswmz/doa-tools)
 * 麦克风声源定位 [[Code]](https://github.com/xiaoli1368/Microphone-sound-source-localization)
 
-### 论文
